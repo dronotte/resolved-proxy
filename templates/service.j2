@@ -1,0 +1,14 @@
+[Unit]
+Description=proxy for ovpn
+
+[Service]
+Type=simple
+User=dnsmasq
+ExecStart=/usr/sbin/dnsmasq --no-daemon --no-hosts --interface={{ dns_interface }} --no-dhcp-interface={{ dns_interface }} --except-interface=lo --bind-interfaces
+ProtectSystem=strict
+NoNewPrivileges=yes
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

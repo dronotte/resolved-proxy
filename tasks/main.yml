@@ -1,0 +1,19 @@
+---
+- name: Install dnsmasq
+  package:
+    name: dnsmasq
+    state: present
+
+- name: Create systemd unit file
+  template:
+    src: service.j2
+    dest: "/etc/systemd/system/resolved-proxy.service"
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Enable service
+  ansible.builtin.service:
+    name: resolved-proxy
+    enabled: yes
+    state: restarted
